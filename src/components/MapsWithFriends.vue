@@ -47,7 +47,7 @@
       :summaryTexts="summaryTexts"
       :score="score"
       @finishGame="finishGame" />
-  </div>  
+  </div>
 </template>
 
 <script lang="ts">
@@ -55,7 +55,7 @@
 
   import firebase from 'firebase/app'
   import 'firebase/database'
-  
+
   import DialogSummaryWithFriends from '@/components/widgets/dialog/DialogSummaryWithFriends.vue'
 
   declare interface Summary {
@@ -119,7 +119,7 @@
         isNextStreetViewReady: false,
         isNextButtonVisible: false,
         isSummaryButtonVisible: false,
-        dialogSummary: false,        
+        dialogSummary: false,
       }
     },
 
@@ -130,7 +130,7 @@
         } else {
           return this.isNextStreetViewReady === true
         }
-      }      
+      }
     },
 
     methods: {
@@ -184,7 +184,7 @@
       },
 
       calculateDistance(): void {
-        this.distance = 
+        this.distance =
           Math.floor(google.maps.geometry.spherical.computeDistanceBetween(this.randomLatLng, this.selectedLatLng!) / 1000)
 
         this.room!.child('round' + this.round + '/player' + this.playerNumber).set(this.distance)
@@ -266,8 +266,13 @@
           center: {lat: 37.869260, lng: -122.254811},
           zoom: 1,
           fullscreenControl: false,
-          mapTypeControl: false,
           streetViewControl: false,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+           mapTypeIds: ['roadmap', 'hybrid'],
+           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+           position: google.maps.ControlPosition.LEFT_TOP
+        },
       })
 
       this.room = firebase.database().ref(this.roomName)
@@ -418,5 +423,5 @@
       left: 300px;
       z-index: 3;
     }
-  }  
+  }
 </style>

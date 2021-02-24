@@ -42,7 +42,7 @@
     <DialogSummary
       :dialogSummary="dialogSummary"
       :score="score"
-      @playAgain="playAgain" />   
+      @playAgain="playAgain" />
   </div>
 </template>
 
@@ -207,7 +207,7 @@
             that.removeMarkers()
             that.putMarker(e.latLng)
             that.selectedLatLng = e.latLng
-          })          
+          })
         }
       }
     },
@@ -217,9 +217,14 @@
           center: {lat: 37.869260, lng: -122.254811},
           zoom: 1,
           fullscreenControl: false,
-          mapTypeControl: false,
           streetViewControl: false,
-      })      
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+           mapTypeIds: ['roadmap', 'hybrid'],
+           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+           position: google.maps.ControlPosition.LEFT_TOP
+        },
+      })
     },
   })
 </script>
